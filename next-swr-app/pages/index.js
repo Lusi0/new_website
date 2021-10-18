@@ -1,9 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useGetPosts } from "../useRequest"
+import Post from "../components/Post"
 
 export default function Home() {
+  const { posts, error } = useGetPosts("/posts")
   return (
+
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -12,6 +16,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <h1>My Posts</h1>
+        {posts.map(post => (
+          <Post post={post} key={post.id} />
+        ))}
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
